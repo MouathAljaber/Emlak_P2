@@ -4,7 +4,7 @@ Independent full-stack website for **fussballcamp-antalya.de**: football holiday
 
 ## Stack
 
-- Responsive semantic HTML/CSS/JavaScript landing page
+- Responsive semantic HTML/CSS/JavaScript landing page with German/English switching and persisted language preference
 - Node.js 20 + Express + Helmet
 - MySQL 8 persistence for enquiries
 - Nodemailer notifications when SMTP is configured
