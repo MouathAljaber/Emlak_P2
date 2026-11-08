@@ -7,6 +7,15 @@
   marquee.innerHTML = '<span>FUSSBALLCAMP ANTALYA · PLAY · GROW · EXPERIENCE · FUSSBALLCAMP ANTALYA · PLAY · GROW · EXPERIENCE · </span>';
   var main = document.querySelector('main');
   if (main) main.parentNode.insertBefore(marquee, main);
+  var topButton = document.createElement('button');
+  topButton.className = 'motion-top';
+  topButton.type = 'button';
+  topButton.setAttribute('aria-label', 'Back to top');
+  topButton.textContent = '↑';
+  document.body.appendChild(topButton);
+  topButton.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
   if (!reduceMotion) {
     for (var particleIndex = 0; particleIndex < 16; particleIndex += 1) {
       var particle = document.createElement('span');
@@ -143,6 +152,9 @@
     window.addEventListener('scroll', function () {
       var hero = document.querySelector('.hero > .wrap');
       if (hero) hero.style.transform = 'translateY(' + Math.min(window.scrollY * .1, 38) + 'px)';
+      var nav = document.querySelector('.nav');
+      if (nav) nav.classList.toggle('motion-compact', window.scrollY > 24);
+      topButton.classList.toggle('visible', window.scrollY > window.innerHeight * .7);
       var scrollable = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (scrollable ? window.scrollY / scrollable * 100 : 0) + '%';
     }, { passive: true });
