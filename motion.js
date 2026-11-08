@@ -1,10 +1,23 @@
 (function () {
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.body.classList.add('motion-loading');
+  window.requestAnimationFrame(function () { document.body.classList.remove('motion-loading'); });
   var marquee = document.createElement('div');
   marquee.className = 'motion-marquee';
   marquee.innerHTML = '<span>FUSSBALLCAMP ANTALYA · PLAY · GROW · EXPERIENCE · FUSSBALLCAMP ANTALYA · PLAY · GROW · EXPERIENCE · </span>';
   var main = document.querySelector('main');
   if (main) main.parentNode.insertBefore(marquee, main);
+  if (!reduceMotion) {
+    for (var particleIndex = 0; particleIndex < 16; particleIndex += 1) {
+      var particle = document.createElement('span');
+      particle.className = 'motion-particle';
+      particle.style.left = (5 + Math.random() * 90) + '%';
+      particle.style.top = (55 + Math.random() * 45) + '%';
+      particle.style.animationDelay = (-Math.random() * 9) + 's';
+      particle.style.animationDuration = (7 + Math.random() * 6) + 's';
+      document.body.appendChild(particle);
+    }
+  }
   var spotlight = document.createElement('div');
   spotlight.className = 'motion-spotlight';
   document.body.appendChild(spotlight);
@@ -83,6 +96,12 @@
       document.body.appendChild(ripple);
       ripple.addEventListener('animationend', function () { ripple.remove(); });
     });
+    var formStatus = document.getElementById('form-status');
+    if (formStatus) {
+      new MutationObserver(function () {
+        if (formStatus.classList.contains('success')) celebrate();
+      }).observe(formStatus, { childList: true, attributes: true, subtree: true });
+    }
 
     document.querySelectorAll('.visual, .card, [data-motion-card]').forEach(function (item) {
       item.addEventListener('pointermove', function (event) {
@@ -100,5 +119,19 @@
       var scrollable = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = (scrollable ? window.scrollY / scrollable * 100 : 0) + '%';
     }, { passive: true });
+  }
+
+  function celebrate() {
+    for (var index = 0; index < 28; index += 1) {
+      var piece = document.createElement('span');
+      piece.className = 'motion-confetti';
+      piece.style.left = (35 + Math.random() * 30) + '%';
+      piece.style.top = '18%';
+      piece.style.setProperty('--x', ((Math.random() - .5) * 70) + 'vw');
+      piece.style.background = ['#d9f36a', '#e16f35', '#fff', '#245a3e'][index % 4];
+      piece.style.animationDelay = (Math.random() * .18) + 's';
+      document.body.appendChild(piece);
+      piece.addEventListener('animationend', function () { piece.remove(); });
+    }
   }
 }());
