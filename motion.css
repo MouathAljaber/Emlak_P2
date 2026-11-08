@@ -10,7 +10,7 @@ main > section {
 .hero {
   background-image:
     linear-gradient(90deg, rgba(22,59,42,.96) 0%, rgba(22,59,42,.82) 48%, rgba(22,59,42,.28) 100%),
-    url("https://images.unsplash.com/photo-1526232761682-d26e2ac918e7?auto=format&fit=crop&w=2200&q=85");
+    url("https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=2200&q=85");
   background-size: cover;
   background-position: center;
 }
