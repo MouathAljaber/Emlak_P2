@@ -7,6 +7,85 @@ main > section {
   overflow: hidden;
 }
 
+.links a,
+.button {
+  position: relative;
+}
+
+.links a::after,
+.button::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  left: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: right;
+  background: var(--orange);
+  transition: transform .35s var(--motion-ease);
+}
+
+.links a:hover::after,
+.links a.motion-active::after,
+.button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+main h2,
+main h3 {
+  position: relative;
+}
+
+main h2::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 3px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, var(--orange), var(--lime));
+  transition: width 1s var(--motion-ease);
+}
+
+[data-reveal].is-visible h2::after,
+[data-reveal].is-visible h3::after {
+  width: 64px;
+}
+
+.button {
+  overflow: hidden;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  bottom: -50%;
+  left: -80%;
+  width: 35%;
+  transform: rotate(20deg);
+  background: rgba(255,255,255,.35);
+  transition: left .65s ease;
+}
+
+.button:hover::before {
+  left: 140%;
+}
+
+.motion-velocity {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 0;
+  height: 20vh;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(0deg, rgba(225,111,53,.08), transparent);
+  transition: opacity .4s ease;
+}
+
+.motion-velocity.active { opacity: 1; }
+
 .motion-top {
   position: fixed;
   right: 24px;
