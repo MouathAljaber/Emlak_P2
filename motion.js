@@ -58,6 +58,14 @@
 
   document.querySelectorAll('.feature, .step, .quote, .leadform, article')
     .forEach(function (item) { item.setAttribute('data-motion-card', ''); });
+  document.querySelectorAll('.faq-q').forEach(function (item) {
+    item.addEventListener('click', function () {
+      var faq = item.closest('.faq-item');
+      if (!faq) return;
+      faq.classList.add('motion-faq-bounce');
+      window.setTimeout(function () { faq.classList.remove('motion-faq-bounce'); }, 420);
+    });
+  });
   document.querySelectorAll('a, button').forEach(function (item) {
     item.setAttribute('data-motion-button', '');
   });
