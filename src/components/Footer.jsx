@@ -12,6 +12,9 @@ export function Footer() {
           <div>
             <h3>{FOOTER.title}</h3>
             <p>{t(FOOTER.about)}</p>
+            <a className="btn footer-cta" href="#anfrage">
+              {t(FOOTER.cta)}
+            </a>
           </div>
           <div>
             <h3>{t(FOOTER.contactTitle)}</h3>
@@ -23,6 +26,7 @@ export function Footer() {
                 </span>
               ))}
             </p>
+            <p className="footer-note">{t(FOOTER.reply)}</p>
           </div>
           <div>
             <h3>{t(FOOTER.legalTitle)}</h3>
@@ -33,7 +37,9 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <h3 className="footer-sub">{t(FOOTER.guidesTitle)}</h3>
+          </div>
+          <div>
+            <h3>{t(FOOTER.guidesTitle)}</h3>
             <ul className="legal">
               {FOOTER.guides.map(([label, url]) => (
                 <li key={url}>

@@ -647,6 +647,8 @@ export const FOOTER = {
     de: 'Trainingslager für Vereine – professionell geplant, persönlich abgestimmt und mit Urlaubsgefühl an der türkischen Riviera.',
     en: 'Football training camps for clubs — professionally planned, tailored to your needs and set on the Turkish Riviera.',
   },
+  cta: { de: 'Unverbindlich anfragen →', en: 'Request a quote →' },
+  reply: { de: 'Wir antworten in der Regel innerhalb von 24 Stunden.', en: 'We usually reply within 24 hours.' },
   contactTitle: { de: 'Kontakt & Anbieter', en: 'Contact & provider' },
   company: COMPANY.site,
   address: [{ de: `E-Mail: ${COMPANY.email}`, en: `Email: ${COMPANY.email}` }],
