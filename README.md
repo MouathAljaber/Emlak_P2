@@ -1,40 +1,44 @@
 # Fussballcamp Antalya
 
-Landing page for **fussballcamp-antalya.de**: winter training camps in Antalya for German football clubs.
-German/English, built with React + Vite. Animations use the `motion` library.
+Landing page for winter football training camps in Antalya (German/English).
+React + Vite, animations with `motion`, hosted on Cloudflare Workers.
 
 ## Run it
 
 ```bash
-npm install      # once
-npm run dev      # local preview at http://localhost:5173
-npm run build    # production files in /dist (upload this folder to the web server)
+npm install
+npm run dev        # local preview at http://localhost:5173
+npm run build      # generates the guide/legal pages, then builds into /dist
+npx wrangler deploy
 ```
 
 Requires Node.js 20.19 or newer.
 
-## Project structure
+## Structure
 
 | What | Where |
 |---|---|
-| All texts (German + English), hotels, prices, links | `src/content.js` |
-| Colours, spacing, layout | `src/styles.css` (colours at the top in `:root`) |
+| All texts (DE + EN), hotels, prices | `src/content.js` |
+| Site name, domain, contact email | `src/company.js` |
+| Form validation (shared by site and Worker) | `src/validation.js` |
 | Page sections | `src/components/*.jsx` |
-| Section order | `src/App.jsx` |
-| Single-file HTML version of the same page (no build step) | `static-version/index.html` |
+| Colours, layout | `src/styles.css` |
+| SEO guide + legal pages (German, static HTML) | `scripts/pages-content.mjs` → generated into `public/` on build |
+| Enquiry endpoint (`POST /api/enquiry`, sends the emails) | `worker/index.js` |
+| Worker/deploy config | `wrangler.jsonc` |
+
+## Enquiry emails
+
+The Worker sends a notification to `NOTIFY_EMAIL` (in `wrangler.jsonc`) and a confirmation to the customer through Resend.
+
+```bash
+npx wrangler secret put RESEND_API_KEY
+```
+
+Without a verified sending domain in Resend, mail only reaches the Resend account owner's address. Set `FROM_EMAIL` once a domain is verified.
 
 ## Before going live
 
-- Add `public/Anmeldeformular_Fussballcamp_Antalya.pdf` (the download button links to it).
+- Add provider details to the Impressum (`scripts/pages-content.mjs`) and have the legal texts reviewed.
 - Replace the Unsplash example photos with original hotel and pitch photos.
-- The enquiry form currently opens the visitor's email program (mailto). For real submissions, connect a form backend.
-- Fonts are bundled locally (no Google Fonts request). The `static-version` still loads Google Fonts.
-
-## Previous version
-
-The earlier Express + MySQL version of this site (server, admin dashboard, enquiry API) was replaced by this page.
-Its code is still in the git history: commit `c8a6f2a`.
-
-```bash
-git checkout c8a6f2a -- .   # restore the old files into the working tree
-```
+- Point `fussballcamp-antalya.de` at the Worker (canonical URLs and sitemap already use it).
