@@ -568,3 +568,4 @@ textarea { resize: vertical; }
   .ticker-group[aria-hidden='true'] { display: none; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
 }
+.footer h3.footer-sub { margin-top: 26px; font-size: 1.3rem; }

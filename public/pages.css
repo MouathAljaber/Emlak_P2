@@ -1,0 +1,19 @@
+:root{--pitch:#0b4430;--deep:#062a1c;--turf:#1f7a4d;--mint:#e9f4ed;--sun:#f5b82e;--ink:#0f2219;--muted:#55685e;--line:#e1e8e2;--bg:#f7f9f6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 Inter,"Instrument Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+a{color:#0a6f9c}.top{background:var(--deep);position:sticky;top:0;z-index:5}.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1040px}
+.brand{color:#fff;text-decoration:none;font:800 20px/1 "Arial Narrow",Impact,sans-serif;letter-spacing:.05em}.brand small{color:var(--sun);font-size:11px;letter-spacing:.2em}
+.top nav{display:flex;gap:18px;align-items:center}.top nav a{color:#cfe6d8;text-decoration:none;font-size:15px}
+.btn{display:inline-block;background:var(--sun);color:var(--deep)!important;font-weight:700;text-decoration:none;padding:13px 24px;border-radius:999px}.btn.sm{padding:8px 16px;font-size:14px}
+.article{padding-top:28px;padding-bottom:56px}.crumbs{font-size:14px;color:var(--muted)}.crumbs a{color:var(--muted)}
+h1{font:800 clamp(34px,6vw,52px)/1.08 "Arial Narrow",Impact,sans-serif;text-transform:uppercase;color:var(--pitch);margin:14px 0 12px}
+h2{font-size:26px;line-height:1.25;margin:40px 0 10px;color:var(--pitch)}h3{font-size:19px;margin:26px 0 6px}
+.lead{font-size:20px;color:var(--muted)}p,li{max-width:70ch}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px;margin:16px 0}th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line)}th{background:var(--mint);color:var(--pitch)}
+.tablewrap{overflow-x:auto}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:10px 0}summary{cursor:pointer;font-weight:700}
+.note{background:#fff4d6;border-left:4px solid var(--sun);padding:12px 16px;border-radius:8px;font-size:15px}
+.cta{background:var(--pitch);color:#fff;border-radius:20px;padding:30px;margin:44px 0 10px}.cta h2{color:#fff;margin-top:0}.cta p{color:#cfe6d8}
+.related ul{padding-left:20px}
+.foot{background:var(--deep);color:#b9d6c6;padding:30px 0;font-size:14px}.foot .wrap{display:flex;gap:30px;justify-content:space-between;flex-wrap:wrap;max-width:1040px}.foot a{color:#fff}
+@media(max-width:600px){.top nav a:not(.btn){display:none}}

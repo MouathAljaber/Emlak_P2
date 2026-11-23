@@ -2,6 +2,8 @@
 // A text is either a plain string (same in both languages) or { de, en }.
 // Arrays are rendered as separate lines (used for headlines).
 
+import { COMPANY } from './company.js';
+
 export const img = (id, w = 900) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=85`;
 
@@ -55,9 +57,9 @@ const dist = (s) => ({
 });
 
 export const CONTACT = {
-  phone: '02203 9424121',
-  phoneHref: 'tel:+4922039424121',
-  email: 'info@reisegesucht.de',
+  phone: '',
+  phoneHref: '',
+  email: COMPANY.email,
 };
 
 export const TOPBAR = {
@@ -548,8 +550,8 @@ export const REQUEST = {
     en: 'Thank you! Your enquiry has been received. A confirmation was sent to your email address.',
   },
   error: {
-    de: 'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie an info@reisegesucht.de.',
-    en: 'Sending failed. Please try again or email info@reisegesucht.de.',
+    de: `Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie an ${COMPANY.email}.`,
+    en: `Sending failed. Please try again or email ${COMPANY.email}.`,
   },
   periodPrefix: { de: 'Gewünschter Zeitraum: ', en: 'Preferred period: ' },
 };
@@ -645,20 +647,23 @@ export const FOOTER = {
     en: 'Football training camps for clubs — professionally planned, tailored to your needs and set on the Turkish Riviera.',
   },
   contactTitle: { de: 'Kontakt & Anbieter', en: 'Contact & provider' },
-  company: 'ReiseGesucht Group',
-  address: [
-    'Kaiserstr. 51',
-    { de: '51145 Köln, Deutschland', en: '51145 Cologne, Germany' },
-    { de: 'Telefon: +49 (0)2203 94 24 121', en: 'Phone: +49 (0)2203 94 24 121' },
-    { de: 'E-Mail: info@reisegesucht.de', en: 'Email: info@reisegesucht.de' },
-    { de: 'Geschäftsführung: Prof. Dr. Haksun Gülcicek', en: 'Managing director: Prof. Dr. Haksun Gülcicek' },
-  ],
+  company: COMPANY.site,
+  address: [{ de: `E-Mail: ${COMPANY.email}`, en: `Email: ${COMPANY.email}` }],
   legalTitle: { de: 'Rechtliches', en: 'Legal' },
-  // The legal pages themselves are German; the English labels keep the German term for clarity.
   legal: [
-    [{ de: 'Impressum ↗', en: 'Legal notice (Impressum) ↗' }, 'https://www.fussballcamp-antalya.de/impressum.html'],
-    [{ de: 'Datenschutz ↗', en: 'Privacy policy (Datenschutz) ↗' }, 'https://www.fussballcamp-antalya.de/datenschutz.html'],
-    [{ de: 'AGB ↗', en: 'Terms & conditions (AGB) ↗' }, 'https://www.fussballcamp-antalya.de/agb.html'],
+    [{ de: 'Impressum', en: 'Legal notice (Impressum)' }, '/impressum'],
+    [{ de: 'Datenschutz', en: 'Privacy policy (Datenschutz)' }, '/datenschutz'],
+    [{ de: 'AGB', en: 'Terms & conditions (AGB)' }, '/agb'],
+  ],
+  guidesTitle: { de: 'Ratgeber', en: 'Guides (German)' },
+  guides: [
+    ['Trainingslager Antalya', '/trainingslager-antalya'],
+    ['Hotels in Lara', '/hotels-lara'],
+    ['Hotels in Kundu', '/hotels-kundu'],
+    ['Trainingsplätze', '/trainingsplaetze-antalya'],
+    ['Kosten & Preise', '/trainingslager-kosten'],
+    ['Trainingslager planen', '/trainingslager-planen'],
+    ['Häufige Fragen', '/haeufige-fragen'],
   ],
   copyright: {
     de: 'Alle Angebote vorbehaltlich Verfügbarkeit und schriftlicher Bestätigung.',

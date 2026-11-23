@@ -29,9 +29,15 @@ export function Footer() {
             <ul className="legal">
               {FOOTER.legal.map(([label, url]) => (
                 <li key={url}>
-                  <a href={url} target="_blank" rel="noopener">
-                    {t(label)}
-                  </a>
+                  <a href={url}>{t(label)}</a>
+                </li>
+              ))}
+            </ul>
+            <h3 className="footer-sub">{t(FOOTER.guidesTitle)}</h3>
+            <ul className="legal">
+              {FOOTER.guides.map(([label, url]) => (
+                <li key={url}>
+                  <a href={url}>{label}</a>
                 </li>
               ))}
             </ul>

@@ -35,8 +35,12 @@ export default function Nav() {
         <div className="wrap topbar-inner">
           <span>{t(TOPBAR)}</span>
           <span className="topbar-contact">
-            <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
-            <span aria-hidden="true">·</span>
+            {CONTACT.phone && (
+              <>
+                <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+                <span aria-hidden="true">·</span>
+              </>
+            )}
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
           </span>
         </div>

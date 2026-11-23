@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.fussballcamp-antalya.de/sitemap.xml
