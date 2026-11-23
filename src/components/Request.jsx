@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useLang } from '../i18n';
-import { CONTACT, REQUEST } from '../content';
+import { REQUEST } from '../content';
 import { Reveal, SectionHead } from '../ui';
 
 const EMPTY = {
@@ -23,7 +23,8 @@ export default function Request({ prefill }) {
   const f = REQUEST.fields;
   const [v, setV] = useState(EMPTY);
   const [agree, setAgree] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [state, setState] = useState('idle');
+  const sent = state === 'sent';
   const set = (k) => (e) => setV((s) => ({ ...s, [k]: e.target.value }));
 
   // Quick form in the hero → copy its values into this form.
@@ -44,15 +45,23 @@ export default function Request({ prefill }) {
     return opt ? t(opt.label) : value;
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const lines = Object.entries(v)
-      .filter(([, value]) => value)
-      .map(([key, value]) => `${key}: ${REQUEST.options[key] ? optionLabel(key, value) : value}`);
-    const subject = `Trainingslager-Anfrage – ${v.club || 'Fußballverein'}`;
-    const body = `Neue unverbindliche Anfrage über fussballcamp-antalya.de\n\n${lines.join('\n')}\n\nBitte Datenschutzhinweis und Live-Formularintegration prüfen.`;
-    setSent(true);
-    window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (state === 'sending') return;
+    setState('sending');
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...v, lang, website: e.target.website?.value || '' }),
+      });
+      if (!res.ok) throw new Error(res.status);
+      setState('sent');
+      setV(EMPTY);
+      setAgree(false);
+    } catch {
+      setState('error');
+    }
   };
 
   const select = (key) => (
@@ -124,8 +133,9 @@ export default function Request({ prefill }) {
                 <label htmlFor="privacy">{t(f.privacy)}</label>
               </div>
               <div className="full">
-                <motion.button className="btn btn-lg" type="submit" whileTap={{ scale: 0.97 }}>
-                  {t(REQUEST.submit)}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-9999px' }} />
+                <motion.button className="btn btn-lg" type="submit" disabled={state === 'sending'} whileTap={{ scale: 0.97 }}>
+                  {state === 'sending' ? t(REQUEST.sending) : t(REQUEST.submit)}
                 </motion.button>
                 <p className="privacy">{t(REQUEST.hint)}</p>
                 <AnimatePresence>
@@ -142,6 +152,11 @@ export default function Request({ prefill }) {
                     </motion.div>
                   )}
                 </AnimatePresence>
+                {state === 'error' && (
+                  <div className="formstatus" role="alert">
+                    {t(REQUEST.error)}
+                  </div>
+                )}
               </div>
             </form>
           </Reveal>

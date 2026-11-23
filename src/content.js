@@ -290,7 +290,7 @@ export const HOTELS = {
         de: 'Komfortoption im oberen Preisbereich. Eignet sich für Vereine, die Trainingsbetrieb mit Erholung und Resortkomfort verbinden möchten.',
         en: 'A comfort option in the upper price range, for clubs looking to combine training with recovery and resort facilities.',
       },
-      link: { label: 'Hotelwebsite / Fotos ↗', url: 'https://www.miraclehotel.com.tr/' },
+      link: { label: 'Hotelwebsite / Fotos ↗', url: 'https://miraclehotel.com/en/gallery/' },
     },
     {
       name: 'Titanic Deluxe Lara', area: 'Lara', dz: 110, ez: 165, distance: 'ca. 8 km zum Platz*',
@@ -537,14 +537,19 @@ export const REQUEST = {
       { value: 'Telefon', label: { de: 'Telefon', en: 'Phone' } },
     ],
   },
-  submit: { de: 'Unverbindliche Anfrage vorbereiten →', en: 'Prepare my no-obligation enquiry →' },
+  submit: { de: 'Unverbindliche Anfrage senden →', en: 'Send my no-obligation enquiry →' },
+  sending: { de: 'Wird gesendet …', en: 'Sending …' },
   hint: {
-    de: 'Hinweis: In dieser HTML-Version wird beim Absenden eine E-Mail vorbereitet; es gibt noch keine sichere Serverübermittlung. Für den Livebetrieb das Formular mit CRM/Formular-Backend verbinden und Analytics erst nach gültiger Einwilligung aktivieren.',
-    en: 'Note: this HTML demo does not yet send data to a server. Submitting prepares an email with the details. For production, connect the form securely to your CRM or form backend.',
+    de: 'Wir antworten in der Regel innerhalb von 24 Stunden. Sie erhalten außerdem eine Bestätigung per E-Mail.',
+    en: 'We usually reply within 24 hours. You will also receive a confirmation email.',
   },
   status: {
-    de: 'Die Anfrage wird als vorbereitete E-Mail an info@reisegesucht.de geöffnet. Bitte im E-Mail-Programm auf Senden klicken. Für automatischen Versand ohne E-Mail-Programm ist eine sichere Formular-/Backend-Anbindung nötig.',
-    en: 'A prepared email to info@reisegesucht.de should open. Click Send in your email application. Automatic submission without an email app requires a secure form backend.',
+    de: 'Vielen Dank! Ihre Anfrage ist bei uns eingegangen. Eine Bestätigung wurde an Ihre E-Mail-Adresse gesendet.',
+    en: 'Thank you! Your enquiry has been received. A confirmation was sent to your email address.',
+  },
+  error: {
+    de: 'Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie an info@reisegesucht.de.',
+    en: 'Sending failed. Please try again or email info@reisegesucht.de.',
   },
   periodPrefix: { de: 'Gewünschter Zeitraum: ', en: 'Preferred period: ' },
 };
