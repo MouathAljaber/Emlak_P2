@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { useLang } from '../i18n';
 import { HERO, QUICK, TRUST } from '../content';
 import { EASE } from '../ui';
@@ -88,6 +88,9 @@ function Ticker() {
 
 export default function Hero({ onQuickSubmit }) {
   const { t, lang } = useLang();
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 900], [0, 140]);
+  const cardY = useTransform(scrollY, [0, 900], [0, -40]);
   const up = (delay) => ({
     initial: { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
@@ -96,7 +99,9 @@ export default function Hero({ onQuickSubmit }) {
 
   return (
     <section className="hero" id="top">
-      <div className="hero-bg" aria-hidden="true" />
+      <motion.div className="hero-parallax" style={{ y: bgY }} aria-hidden="true">
+        <div className="hero-bg" />
+      </motion.div>
       <ChalkLines />
       <div className="wrap hero-grid">
         <div className="hero-copy">
@@ -133,6 +138,7 @@ export default function Hero({ onQuickSubmit }) {
           </motion.p>
         </div>
 
+        <motion.div style={{ y: cardY }}>
         <motion.div
           className="hero-card"
           initial={{ opacity: 0, y: 48, rotate: 1.5 }}
@@ -142,6 +148,7 @@ export default function Hero({ onQuickSubmit }) {
           <h2>{t(QUICK.title)}</h2>
           <p>{t(QUICK.text)}</p>
           <QuickForm onSubmit={onQuickSubmit} />
+        </motion.div>
         </motion.div>
       </div>
       <Ticker />

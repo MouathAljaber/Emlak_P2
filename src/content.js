@@ -212,6 +212,7 @@ export const HOTELS = {
     all: { de: 'Alle Hotels', en: 'All hotels' },
     sortDefault: { de: 'Empfohlen', en: 'Recommended' },
     sortPrice: { de: 'Preis aufsteigend', en: 'Price: low to high' },
+    cheapest: { de: '★ Günstigste Option', en: '★ Lowest price' },
     filterLabel: { de: 'Region', en: 'Area' },
     sortLabel: { de: 'Sortieren', en: 'Sort' },
     perNight: { de: 'pro Person/Nacht', en: 'per person/night' },

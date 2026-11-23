@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'motion/react';
 import { useLang } from '../i18n';
 import { BRAND, CONTACT, NAV, NAV_CTA, TOPBAR } from '../content';
 
@@ -9,6 +9,9 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 });
+
+  const ballX = useTransform(progress, [0, 1], ['0%', '100%']);
+  const ballTurn = useTransform(progress, [0, 1], [0, 1800]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -30,6 +33,9 @@ export default function Nav() {
   return (
     <>
       <motion.div className="progress" style={{ scaleX: progress }} aria-hidden="true" />
+      <motion.div className="progress-ball" style={{ left: ballX, rotate: ballTurn }} aria-hidden="true">
+        ⚽
+      </motion.div>
 
       <div className="topbar">
         <div className="wrap topbar-inner">

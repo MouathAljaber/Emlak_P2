@@ -89,9 +89,16 @@ export function Steps() {
           </div>
           {STEPS.items.map((s, i) => (
             <Reveal as="article" key={i} delay={stagger(i, 0.12)} className="step">
-              <div className="step-num" aria-hidden="true">
+              <motion.div
+                className="step-num"
+                aria-hidden="true"
+                initial={{ scale: 0.4, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: 'spring', stiffness: 380, damping: 16, delay: 0.15 + i * 0.12 }}
+              >
                 {i + 1}
-              </div>
+              </motion.div>
               <div>
                 <h3>{t(s.title)}</h3>
                 <p>{t(s.text)}</p>

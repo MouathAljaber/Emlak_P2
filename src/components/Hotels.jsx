@@ -6,7 +6,7 @@ import { Reveal, SectionHead, stagger } from '../ui';
 
 const AREAS = ['all', 'Lara', 'Kundu'];
 
-function HotelCard({ hotel }) {
+function HotelCard({ hotel, cheapest }) {
   const { t } = useLang();
   const ui = HOTELS.ui;
   return (
@@ -22,7 +22,13 @@ function HotelCard({ hotel }) {
         <a href={img(hotel.img, 1600)} target="_blank" rel="noopener" aria-label={t(ui.openImage)}>
           <img loading="lazy" src={img(hotel.img)} alt={t(hotel.alt)} />
         </a>
-        {hotel.badge && <span className="hotel-badge">{t(hotel.badge)}</span>}
+        {cheapest ? (
+          <motion.span className="hotel-badge badge-cheap" initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 400, damping: 15 }}>
+            {t(ui.cheapest)}
+          </motion.span>
+        ) : (
+          hotel.badge && <span className="hotel-badge">{t(hotel.badge)}</span>
+        )}
         <span className="hotel-area">{hotel.area} · Antalya</span>
       </div>
       <div className="hotel-body">
@@ -100,8 +106,8 @@ export function Hotels() {
 
         <motion.div layout className="hotelgrid">
           <AnimatePresence mode="popLayout">
-            {list.map((h) => (
-              <HotelCard key={h.name} hotel={h} />
+            {list.map((h, i) => (
+              <HotelCard key={h.name} hotel={h} cheapest={sort === 'price' && i === 0} />
             ))}
           </AnimatePresence>
         </motion.div>
