@@ -1,6 +1,8 @@
 // Cloudflare Worker: serves the built site and handles POST /api/enquiry.
 // Sends (1) a notification to NOTIFY_EMAIL and (2) a confirmation to the customer via Resend.
 
+import { validate } from '../src/validation.js';
+
 const esc = (s) =>
   String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -30,8 +32,8 @@ async function handleEnquiry(request, env) {
   const v = {};
   for (const k of Object.keys(LABELS)) v[k] = String(d[k] ?? '').trim().slice(0, k === 'details' ? 3000 : 200);
   const lang = d.lang === 'en' ? 'en' : 'de';
-  if (!v.club || !v.team || !v.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email))
-    return json({ error: 'invalid' }, 400);
+  const problems = validate(v);
+  if (Object.keys(problems).length) return json({ error: 'invalid', fields: problems }, 400);
 
   const from = env.FROM_EMAIL || 'Fussballcamp Antalya <onboarding@resend.dev>';
 

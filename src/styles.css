@@ -590,3 +590,4 @@ textarea { resize: vertical; }
 .compare tbody tr { transition: background 0.25s; }
 .compare tbody tr:hover { background: var(--mint); }
 @media (prefers-reduced-motion: reduce) { .progress-ball { display: none; } .badge-cheap { animation: none; } }
+.field-error { display: block; margin-top: 6px; color: #b3261e; font-size: 0.82rem; font-weight: 600; }

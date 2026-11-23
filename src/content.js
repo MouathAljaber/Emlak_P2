@@ -554,6 +554,18 @@ export const REQUEST = {
     de: `Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder schreiben Sie an ${COMPANY.email}.`,
     en: `Sending failed. Please try again or email ${COMPANY.email}.`,
   },
+  err: {
+    club: { de: 'Bitte einen gültigen Vereinsnamen eingeben (2–80 Zeichen, mit Buchstaben).', en: 'Please enter a valid club name (2–80 characters, including letters).' },
+    team: { de: 'Bitte Mannschaft/Altersklasse angeben (z. B. U17).', en: 'Please enter the team / age group (e.g. U17).' },
+    name: { de: 'Bitte Vor- und Nachnamen eingeben (nur Buchstaben).', en: 'Please enter first and last name (letters only).' },
+    email: { de: 'Bitte eine gültige E-Mail-Adresse eingeben.', en: 'Please enter a valid email address.' },
+    phone: { de: 'Ungültige Telefonnummer (7–15 Ziffern, erlaubt: + ( ) - / .).', en: 'Invalid phone number (7–15 digits; allowed: + ( ) - / .).' },
+    arrival: { de: 'Anreise darf nicht in der Vergangenheit liegen.', en: 'Arrival cannot be in the past.' },
+    departure: { de: 'Abreise muss nach der Anreise liegen.', en: 'Departure must be after arrival.' },
+    players: { de: 'Spielerzahl: ganze Zahl von 1 bis 150.', en: 'Players: whole number from 1 to 150.' },
+    staff: { de: 'Betreuer: ganze Zahl von 0 bis 50.', en: 'Staff: whole number from 0 to 50.' },
+    details: { de: 'Text zu lang (max. 2000 Zeichen) oder zu viele Links.', en: 'Text too long (max. 2000 characters) or too many links.' },
+  },
   periodPrefix: { de: 'Gewünschter Zeitraum: ', en: 'Preferred period: ' },
 };
 

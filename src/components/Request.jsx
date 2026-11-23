@@ -3,17 +3,23 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useLang } from '../i18n';
 import { REQUEST } from '../content';
 import { Reveal, SectionHead } from '../ui';
+import { sanitize, validate } from '../validation';
 
 const EMPTY = {
   club: '', team: '', name: '', role: '', email: '', phone: '', arrival: '', departure: '',
   players: '', staff: '', rooms: 'Noch offen', budget: 'Noch offen', details: '', contact_method: 'E-Mail',
 };
 
-function Field({ label, full, children }) {
+function Field({ label, full, error, children }) {
   return (
     <label className={`field${full ? ' full' : ''}`}>
       <span>{label}</span>
       {children}
+      {error && (
+        <small className="field-error" role="alert">
+          {error}
+        </small>
+      )}
     </label>
   );
 }
@@ -25,7 +31,14 @@ export default function Request({ prefill }) {
   const [agree, setAgree] = useState(false);
   const [state, setState] = useState('idle');
   const sent = state === 'sent';
-  const set = (k) => (e) => setV((s) => ({ ...s, [k]: e.target.value }));
+  const [errors, setErrors] = useState({});
+  const CLEAN = { club: sanitize.org, team: sanitize.org, name: sanitize.name, phone: sanitize.phone };
+  const set = (k) => (e) => {
+    const value = CLEAN[k] ? CLEAN[k](e.target.value) : e.target.value;
+    setV((s) => ({ ...s, [k]: value }));
+    setErrors((er) => (er[k] ? { ...er, [k]: undefined } : er));
+  };
+  const err = (k) => (errors[k] ? t(REQUEST.err[errors[k]]) : '');
 
   // Quick form in the hero → copy its values into this form.
   useEffect(() => {
@@ -48,6 +61,12 @@ export default function Request({ prefill }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (state === 'sending') return;
+    const found = validate(v);
+    setErrors(found);
+    if (Object.keys(found).length) {
+      document.querySelector('.field-error')?.closest('label')?.querySelector('input,textarea,select')?.focus();
+      return;
+    }
     setState('sending');
     try {
       const res = await fetch('/api/enquiry', {
@@ -92,38 +111,38 @@ export default function Request({ prefill }) {
             <h2>{t(REQUEST.formTitle)}</h2>
             <p className="requestbox-sub">{t(REQUEST.formText)}</p>
             <form className="formgrid" onSubmit={onSubmit}>
-              <Field label={t(f.club)}>
-                <input name="club" required autoComplete="organization" value={v.club} onChange={set('club')} />
+              <Field label={t(f.club)} error={err('club')}>
+                <input name="club" required minLength={2} maxLength={80} autoComplete="organization" value={v.club} onChange={set('club')} />
               </Field>
-              <Field label={t(f.team)}>
-                <input name="team" required placeholder={t(f.teamPh)} value={v.team} onChange={set('team')} />
+              <Field label={t(f.team)} error={err('team')}>
+                <input name="team" required maxLength={40} placeholder={t(f.teamPh)} value={v.team} onChange={set('team')} />
               </Field>
-              <Field label={t(f.name)}>
-                <input name="name" required autoComplete="name" value={v.name} onChange={set('name')} />
+              <Field label={t(f.name)} error={err('name')}>
+                <input name="name" required minLength={5} maxLength={60} autoComplete="name" value={v.name} onChange={set('name')} />
               </Field>
               <Field label={t(f.role)}>{select('role')}</Field>
-              <Field label={t(f.email)}>
-                <input type="email" name="email" required autoComplete="email" value={v.email} onChange={set('email')} />
+              <Field label={t(f.email)} error={err('email')}>
+                <input type="email" name="email" required maxLength={254} autoComplete="email" value={v.email} onChange={set('email')} />
               </Field>
-              <Field label={t(f.phone)}>
-                <input type="tel" name="phone" autoComplete="tel" value={v.phone} onChange={set('phone')} />
+              <Field label={t(f.phone)} error={err('phone')}>
+                <input type="tel" name="phone" inputMode="tel" maxLength={25} autoComplete="tel" value={v.phone} onChange={set('phone')} />
               </Field>
-              <Field label={t(f.arrival)}>
-                <input type="date" name="arrival" value={v.arrival} onChange={set('arrival')} />
+              <Field label={t(f.arrival)} error={err('arrival')}>
+                <input type="date" name="arrival" min={new Date().toISOString().slice(0, 10)} value={v.arrival} onChange={set('arrival')} />
               </Field>
-              <Field label={t(f.departure)}>
-                <input type="date" name="departure" min={v.arrival || undefined} value={v.departure} onChange={set('departure')} />
+              <Field label={t(f.departure)} error={err('departure')}>
+                <input type="date" name="departure" min={v.arrival || new Date().toISOString().slice(0, 10)} value={v.departure} onChange={set('departure')} />
               </Field>
-              <Field label={t(f.players)}>
+              <Field label={t(f.players)} error={err('players')}>
                 <input type="number" name="players" min="1" max="150" placeholder={t(f.playersPh)} value={v.players} onChange={set('players')} />
               </Field>
-              <Field label={t(f.staff)}>
+              <Field label={t(f.staff)} error={err('staff')}>
                 <input type="number" name="staff" min="0" max="50" placeholder={t(f.staffPh)} value={v.staff} onChange={set('staff')} />
               </Field>
               <Field label={t(f.rooms)}>{select('rooms')}</Field>
               <Field label={t(f.budget)}>{select('budget')}</Field>
-              <Field label={t(f.details)} full>
-                <textarea name="details" rows={4} placeholder={t(f.detailsPh)} value={v.details} onChange={set('details')} />
+              <Field label={t(f.details)} full error={err('details')}>
+                <textarea name="details" rows={4} maxLength={2000} placeholder={t(f.detailsPh)} value={v.details} onChange={set('details')} />
               </Field>
               <Field label={t(f.contactMethod)} full>
                 {select('contact_method')}

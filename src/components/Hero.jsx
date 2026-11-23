@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useLang } from '../i18n';
-import { HERO, QUICK, TRUST } from '../content';
+import { HERO, QUICK, REQUEST, TRUST } from '../content';
 import { EASE } from '../ui';
+import { sanitize, validate } from '../validation';
 
 function ChalkLines() {
   const draw = (delay) => ({
@@ -23,27 +24,40 @@ function ChalkLines() {
 function QuickForm({ onSubmit }) {
   const { t } = useLang();
   const [v, setV] = useState({ club: '', contact: '', email: '', period: '' });
-  const set = (k) => (e) => setV((s) => ({ ...s, [k]: e.target.value }));
+  const [errors, setErrors] = useState({});
+  const CLEAN = { club: sanitize.org, contact: sanitize.name };
+  const set = (k) => (e) => {
+    setV((s) => ({ ...s, [k]: CLEAN[k] ? CLEAN[k](e.target.value) : e.target.value }));
+    setErrors((er) => ({ ...er, [k]: undefined }));
+  };
+  const msg = (k) => (errors[k] ? t(REQUEST.err[errors[k]]) : null);
 
   return (
     <form
       className="quickform"
       onSubmit={(e) => {
         e.preventDefault();
+        const found = validate({ club: v.club, team: 'x', name: v.contact, email: v.email });
+        const next = { club: found.club, contact: found.name, email: found.email };
+        setErrors(next);
+        if (Object.values(next).some(Boolean)) return;
         onSubmit(v);
       }}
     >
       <label>
         <span>{t(QUICK.club)}</span>
         <input name="club" required placeholder={t(QUICK.clubPh)} autoComplete="organization" value={v.club} onChange={set('club')} />
+        {msg('club') && <small className="field-error" role="alert">{msg('club')}</small>}
       </label>
       <label>
         <span>{t(QUICK.contact)}</span>
         <input name="contact" required placeholder={t(QUICK.contactPh)} autoComplete="name" value={v.contact} onChange={set('contact')} />
+        {msg('contact') && <small className="field-error" role="alert">{msg('contact')}</small>}
       </label>
       <label>
         <span>{t(QUICK.email)}</span>
         <input type="email" name="email" required placeholder={t(QUICK.emailPh)} autoComplete="email" value={v.email} onChange={set('email')} />
+        {msg('email') && <small className="field-error" role="alert">{msg('email')}</small>}
       </label>
       <label>
         <span>{t(QUICK.period)}</span>
