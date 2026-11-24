@@ -42,8 +42,8 @@ export function Footer() {
             <h3>{t(FOOTER.guidesTitle)}</h3>
             <ul className="legal">
               {FOOTER.guides.map(([label, url]) => (
-                <li key={url}>
-                  <a href={url}>{label}</a>
+                <li key={url.de}>
+                  <a href={t(url)}>{t(label)}</a>
                 </li>
               ))}
             </ul>
@@ -65,7 +65,9 @@ export function MobileCta() {
     const onScroll = () => {
       const form = document.getElementById('anfrage');
       const atForm = form && form.getBoundingClientRect().top < window.innerHeight && form.getBoundingClientRect().bottom > 0;
-      setShow(window.scrollY > window.innerHeight * 0.7 && !atForm);
+      const foot = document.querySelector('.footer');
+      const atFoot = foot && foot.getBoundingClientRect().top < window.innerHeight - 80;
+      setShow(window.scrollY > window.innerHeight * 0.7 && !atForm && !atFoot);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });

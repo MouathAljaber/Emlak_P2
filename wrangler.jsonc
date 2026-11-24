@@ -4,6 +4,7 @@
   "compatibility_date": "2025-01-01",
   "assets": { "directory": "./dist", "binding": "ASSETS", "not_found_handling": "404-page" },
   "vars": {
-    "NOTIFY_EMAIL": "traninigcamps@gmail.com"
+    "NOTIFY_EMAIL": "traninigcamps@gmail.com",
+    "SITE_URL": "https://emlak-p2.httpstrainingslager-antalyade.workers.dev"
   }
 }

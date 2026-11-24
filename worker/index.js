@@ -41,6 +41,7 @@ async function handleEnquiry(request, env) {
     de: { thanks: 'Vielen Dank', recv: 'Ihre Anfrage ist bei uns eingegangen.', soon: 'Wir melden uns in Kürze bei Ihnen. Hier Ihre Angaben als Kopie:', arrive: 'ANREISE', depart: 'ABREISE', group: 'Gruppe', players: 'Spieler', staff: 'Betreuer', rooms: 'Zimmer', budget: 'Budget p. P.', pref: 'Bevorzugt', reply: '✉ Antworten', new: '● NEU', wants: 'möchte ein Trainingslager<br>in Antalya anfragen.', sent: 'automatisch gesendet', sub: 'Neue Trainingslager-Anfrage', subC: 'Ihre Anfrage ist bei uns eingegangen – Fussballcamp Antalya', loc: 'de-DE' },
     en: { thanks: 'Thank you', recv: 'We have received your enquiry.', soon: 'We will get back to you shortly. Here is your copy:', arrive: 'ARRIVAL', depart: 'DEPARTURE', group: 'Group', players: 'players', staff: 'staff', rooms: 'Rooms', budget: 'Budget p.p.', pref: 'Preferred', reply: '✉ Reply', new: '● NEW', wants: 'wants to enquire about a<br>training camp in Antalya.', sent: 'sent automatically', sub: 'New training camp enquiry', subC: 'We received your enquiry – Fussballcamp Antalya', loc: 'en-GB' },
   };
+  const logoUrl = `${(env.SITE_URL || 'https://emlak-p2.httpstrainingslager-antalyade.workers.dev').replace(/\/$/, '')}/email-logo.png`;
   const OWNER = T.de; // owner mail is always German
   const initials = v.name.split(/\s+/).map((w) => w[0]).join('').slice(0, 2).toUpperCase();
   const fmt = (iso, loc) => {
@@ -86,11 +87,11 @@ ${tel ? `<td width="50%" style="padding-left:6px"><a href="tel:${esc(tel)}" styl
 <td width="56"><div style="width:52px;height:52px;line-height:52px;text-align:center;border-radius:50%;background-color:#0b4430;color:#ffffff;font-size:18px;font-weight:800">${esc(initials)}</div></td>
 <td style="padding-left:14px"><div style="font-size:20px;font-weight:800;color:#0f2219">${esc(v.name)}</div><div style="font-size:13px;color:#6a7d72">${sub}</div></td></tr></table>`;
 
-    return `<!doctype html><html><body style="margin:0;background:#eef2ef;padding:24px 12px;font-family:Arial,Helvetica,sans-serif">
+    return `<!doctype html><html lang="${customer && L === T.en ? 'en' : 'de'}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>${customer ? L.thanks : OWNER.sub}</title></head><body style="margin:0;background:#eef2ef;padding:24px 12px;font-family:Arial,Helvetica,sans-serif">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${customer ? L.recv : `${esc(v.name)} · ${esc(v.club)} ${esc(v.team)}`}</div>
 <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:18px;overflow:hidden;border:1px solid #e5e5e5">
-<tr><td style="padding:28px 30px 0"><table width="100%"><tr><td><span style="font-size:15px;font-weight:800;color:#0b4430;letter-spacing:.05em">FUSSBALLCAMP</span><span style="font-size:11px;color:#e3a213;letter-spacing:.2em"> ANTALYA</span></td>${badge}</tr></table></td></tr>
+<tr><td style="padding:26px 30px 0"><table width="100%"><tr><td><img src="${logoUrl}" width="190" height="38" alt="Fussballcamp Antalya" style="display:block;border:0;outline:none;height:auto"></td>${badge}</tr></table></td></tr>
 <tr><td style="padding:26px 30px 6px">${person}<p style="margin:${customer ? '0' : '20px'} 0 0;font-size:26px;line-height:1.25;font-weight:800;color:#0f2219">${headline}</p>${intro}</td></tr>
 ${dates}
 <tr><td style="padding:14px 30px 0"><table width="100%" cellpadding="0" cellspacing="0" style="font-size:14px">${rows}</table>${quote}</td></tr>
