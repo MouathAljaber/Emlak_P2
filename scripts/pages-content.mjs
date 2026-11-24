@@ -205,6 +205,13 @@ ${PRICE_NOTE}
     ],
   },
 
+  {
+    slug: '404', noindex: true,
+    title: 'Seite nicht gefunden | Fussballcamp Antalya', description: 'Diese Seite wurde nicht gefunden.', h1: 'Abseits: Seite nicht gefunden',
+    lead: 'Die gesuchte Seite gibt es nicht (mehr). Hier geht es zurück ins Spiel:',
+    body: () => `<ul><li><a href="/">Zur Startseite</a></li><li><a href="/trainingslager-antalya">Ratgeber: Trainingslager in Antalya</a></li><li><a href="/hotels-lara">Hotels in Lara</a></li><li><a href="/trainingslager-kosten">Kosten &amp; Preise</a></li><li><a href="/#anfrage">Unverbindlich anfragen</a></li></ul>`,
+  },
+
   // ---------------- Legal ----------------
   {
     slug: 'impressum', legal: true,

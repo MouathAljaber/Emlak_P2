@@ -99,10 +99,10 @@ export default function Request({ prefill }) {
         <SectionHead eyebrow={REQUEST.eyebrow} title={REQUEST.title} text={REQUEST.text} />
         <div className="request-grid">
           <Reveal className="download-card">
-            <div className="download-icon" aria-hidden="true">📄</div>
+            <div className="download-icon" aria-hidden="true">🗓️</div>
             <strong>{t(REQUEST.download.title)}</strong>
             <p>{t(REQUEST.download.text)}</p>
-            <a className="btn" href={REQUEST.download.href} download>
+            <a className="btn" href={REQUEST.download.href}>
               {t(REQUEST.download.button)}
             </a>
           </Reveal>

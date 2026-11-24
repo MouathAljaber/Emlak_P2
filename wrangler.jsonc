@@ -2,7 +2,7 @@
   "name": "emlak-p2",
   "main": "worker/index.js",
   "compatibility_date": "2025-01-01",
-  "assets": { "directory": "./dist", "binding": "ASSETS" },
+  "assets": { "directory": "./dist", "binding": "ASSETS", "not_found_handling": "404-page" },
   "vars": {
     "NOTIFY_EMAIL": "traninigcamps@gmail.com"
   }

@@ -87,6 +87,7 @@ ${tel ? `<td width="50%" style="padding-left:6px"><a href="tel:${esc(tel)}" styl
 <td style="padding-left:14px"><div style="font-size:20px;font-weight:800;color:#0f2219">${esc(v.name)}</div><div style="font-size:13px;color:#6a7d72">${sub}</div></td></tr></table>`;
 
     return `<!doctype html><html><body style="margin:0;background:#eef2ef;padding:24px 12px;font-family:Arial,Helvetica,sans-serif">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${customer ? L.recv : `${esc(v.name)} · ${esc(v.club)} ${esc(v.team)}`}</div>
 <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
 <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:18px;overflow:hidden;border:1px solid #e5e5e5">
 <tr><td style="padding:28px 30px 0"><table width="100%"><tr><td><span style="font-size:15px;font-weight:800;color:#0b4430;letter-spacing:.05em">FUSSBALLCAMP</span><span style="font-size:11px;color:#e3a213;letter-spacing:.2em"> ANTALYA</span></td>${badge}</tr></table></td></tr>
@@ -98,11 +99,18 @@ ${buttons}
 </table></td></tr></table></body></html>`;
   };
 
+  const plain = (L, customer) => [
+    customer ? `${L.thanks}, ${v.name.split(/\s+/)[0]}! ${L.recv}\n${L.soon}\n` : `${OWNER.sub}\n`,
+    ...Object.entries(LABELS).filter(([k]) => v[k]).map(([k, l]) => `${l}: ${v[k]}`),
+    '', 'Fussballcamp Antalya',
+  ].join('\n');
+
   try {
     await sendMail(env, {
       from, to: [env.NOTIFY_EMAIL], reply_to: v.email,
       subject: `${OWNER.sub} – ${v.club}`,
       html: build(OWNER, false),
+      text: plain(OWNER, false),
     });
   } catch (e) {
     console.error(e);
@@ -115,6 +123,7 @@ ${buttons}
     await sendMail(env, {
       from, to: [v.email], reply_to: env.NOTIFY_EMAIL, subject: C.subC,
       html: build(C, true),
+      text: plain(C, true),
     });
   } catch (e) {
     console.error('confirmation failed', e);

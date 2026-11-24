@@ -279,7 +279,7 @@ export const HOTELS = {
     },
     {
       name: 'Liberty Lara', area: 'Lara', dz: 90, ez: 135, distance: 'ca. 8 km zum Platz*',
-      img: '1578774204375-826dc5d996ed', alt: 'Moderne Hotelanlage mit Palmen – Hotelmotiv',
+      img: '1551882547-ff40c63fe5fa', alt: 'Hotelanlage mit Palmen und Pool im Abendlicht – Hotelmotiv',
       text: {
         de: 'Eine weitere 5-Sterne-Option für Mannschaften, die eine Resortumgebung mit Strand- und Freizeitmöglichkeiten bevorzugen.',
         en: 'Another 5-star option for teams preferring a resort setting with beach and leisure facilities.',
@@ -297,7 +297,7 @@ export const HOTELS = {
     },
     {
       name: 'Titanic Deluxe Lara', area: 'Lara', dz: 110, ez: 165, distance: 'ca. 8 km zum Platz*',
-      img: '1568084680786-a84f91d1153c', alt: 'Große Ferienanlage mit Poollandschaft – Hotelmotiv',
+      img: '1540541338287-41700207dee6', alt: 'Große Poollandschaft am Meer mit Sonnenschirmen – Hotelmotiv',
       text: {
         de: 'Große Resortanlage mit vielfältigen Freizeit- und Wellnessbereichen. Hotelgalerie und genaue Leistungen direkt beim Anbieter ansehen.',
         en: "A large resort with a variety of leisure and wellness areas. See the hotel's gallery and confirm specific services with the provider.",
@@ -478,13 +478,13 @@ export const REQUEST = {
     en: 'The more detail you share, the better we can tailor the proposal. No obligation.',
   },
   download: {
-    title: { de: 'Anmeldeformular für den Verein', en: 'Registration form for your club' },
+    title: { de: 'So geht es nach der Anfrage weiter', en: 'What happens after your enquiry' },
     text: {
-      de: 'Ihr könnt das Formular herunterladen, ausfüllen und von einer vertretungsberechtigten Person unterschreiben sowie mit Vereinsstempel versehen lassen. Die Anfrage über diese Landingpage bleibt unverbindlich.',
-      en: 'You can download the form, fill it in and have it signed by an authorised club representative and stamped with the club stamp. Enquiries via this landing page remain non-binding.',
+      de: 'Wir prüfen Verfügbarkeit für euren Wunschzeitraum, stimmen Hotel, Training und Transfers mit euch ab und senden ein individuelles Angebot. Die Anfrage ist unverbindlich; ihr erhaltet sofort eine Bestätigung per E-Mail.',
+      en: 'We check availability for your preferred dates, agree hotel, training and transfers with you and send an individual proposal. The enquiry is non-binding and you receive an email confirmation straight away.',
     },
-    button: { de: '📄 Anmeldeformular herunterladen (PDF)', en: '📄 Download registration form (PDF)' },
-    href: 'Anmeldeformular_Fussballcamp_Antalya.pdf',
+    button: { de: '✉ Lieber direkt per E-Mail schreiben', en: '✉ Prefer to email us directly' },
+    href: `mailto:${COMPANY.email}?subject=Trainingslager-Anfrage`,
   },
   formTitle: { de: 'Vereinsanfrage', en: 'Club enquiry' },
   formText: { de: 'Wir melden uns zur Abstimmung der Details.', en: 'We’ll get in touch to discuss the details.' },
